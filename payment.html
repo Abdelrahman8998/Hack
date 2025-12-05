@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Payment Page - Vodafone Cash</title>
+
+<style>
+body {
+  font-family: 'Cairo', sans-serif;
+  direction: ltr;
+  background-color: #ddd;
+  margin: 0;
+  height: calc(100vh - 140px);
+  overflow: auto;
+  padding: 70px 0;
+  position: relative;
+  text-align: left;
+}
+
+.container {
+  padding: 0 !important;
+  width: 600px !important;
+  max-width: calc(100% - 30px) !important;
+  margin: auto !important;
+}
+
+.page {
+  border-radius: 15px;
+  background-color: #fff;
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+header {
+  padding: 10px 30px;
+  background-color: #ffffff;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+}
+
+header .paymob img {
+  display: block;
+  width: 75%;
+  margin: auto;
+}
+
+.intro h3 {
+  color: rgba(0, 0, 0, 0.99);
+  font-size: 30px;
+  text-align: center;
+}
+
+button {
+  margin: 10px auto;
+  background-color: #E60000;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: #FFF;
+  font-size: 15px;
+  width: 150px;
+  display: block;
+}
+
+button:hover {
+  background-color: rgba(230, 0, 0, 0.9);
+  cursor: pointer;
+}
+
+form {
+  overflow: hidden;
+  padding: 0 20px;
+}
+
+form label {
+  display: block;
+  color: #000;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+form input {
+  display: block;
+  padding: 10px 20px;
+  width: 100%;
+  border: 1px solid #DFEAFC;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  font-size: 14px;
+  direction: ltr;
+}
+
+form input::placeholder {
+  color: #7F98C5;
+}
+
+.error-message {
+  color: #E60000;
+  font-size: 13px;
+  text-align: left;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+span {
+  display: block;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 8px 85px;
+  text-align: left;
+}
+
+.parent {
+  width: 300px;
+  margin: auto;
+  max-width: calc(100% - 30px);
+}
+
+.amountDiv {
+  position: absolute;
+  left: -130px;
+  top: 0;
+  height: 100%;
+  width: 120px;
+}
+
+.amountDiv label {
+  margin-top: 0;
+  text-align: center;
+}
+
+.amountDiv span {
+  display: inline-block;
+  background-color: #f0f0f0;
+  width: 100%;
+  border-radius: 10px;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.OTPDiv button {
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 20px;
+  color: #000;
+  font-size: 12px;
+  text-decoration: underline;
+  width: 100%;
+  outline: none;
+}
+
+footer {
+  margin-bottom: 50px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.companies ul {
+  list-style: none;
+  padding: 0;
+}
+
+.companies ul li {
+  display: inline-block;
+  width: 120px;
+  margin: 10px;
+}
+
+.companies img {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: 95% !important;
+  }
+  .amountDiv {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .intro h3 {
+    font-size: 22px;
+  }
+}
+</style>
+</head>
+
+<body>
+  <div class="content_center">
+    <section class="container">
+      <div class="page">
+        <header>
+          <div class="paymob">
+            <img src="voda_new.png" alt="Vodafone Cash">
+          </div>
+        </header>
+
+        <div class="checkout">
+          <div class="intro">
+            <h3>Complete Payment</h3>
+          </div>
+
+          <div id="billFormErr"></div>
+
+          <div class="form">
+            <form>
+              <div class="parent">
+                <div class="child" style="position: relative;">
+                  <label>Send the money to this number 👇</label>
+                  <span>01070817647</span>
+                  <div class="amountDiv">
+                    <label>Amount</label>
+                    <span id="amountEGP">-- EGP</span>
+                  </div>
+                </div>
+
+                <div class="child">
+                  <label>Enter the number you sent the money from 👇</label>
+                  <input type="tel" placeholder="01XXXXXXXXX" id="userPhone" autocomplete="off" maxlength="11">
+                  <div id="errorMsg" class="error-message">Invalid phone number. Make sure it starts with 010, 011, 012, or 015 and contains 11 digits.</div>
+                </div>
+
+              </div>
+
+              <button type="button" id="payButton">Pay Now</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+
+    </footer>
+  </div>
+</body>
+</html>
