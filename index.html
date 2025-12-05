@@ -28,7 +28,8 @@
     }
 
     @keyframes fadeIn{
-      from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}
+      from{opacity:0; transform:translateY(10px);} 
+      to{opacity:1; transform:translateY(0);}
     }
 
     h2{
@@ -97,7 +98,27 @@
       font-weight:600;
     }
 
-    /* Extra Mobile Optimization */
+    /* رسالة التحقق */
+    .msg {
+      margin-bottom:15px;
+      padding:12px;
+      border-radius:10px;
+      font-size:15px;
+      display:none;
+    }
+
+    .error {
+      background:#ff3b3b20;
+      color:#ff5c5c;
+      border:1px solid #ff5c5c;
+    }
+
+    .success {
+      background:#22c55e20;
+      color:#22c55e;
+      border:1px solid #22c55e;
+    }
+
     @media(max-width:380px){
       .card{
         padding:28px 22px;
@@ -112,26 +133,58 @@
   <div class="card">
     <h2>LogIn</h2>
 
+    <div class="msg" id="msgBox"></div>
+
     <div class="input">
       <label>ID</label>
-      <input type="text" placeholder="Enter your ID" />
+      <input id="idInput" type="text" placeholder="Enter your ID" />
     </div>
 
     <div class="input">
       <label>Password</label>
-      <input type="password" placeholder="Enter your password" />
+      <input id="passInput" type="password" placeholder="Enter your password" />
     </div>
 
     <div class="input">
       <label>Promocode</label>
-      <input type="Promocode" placeholder="Enter your Promocode" />
+      <input type="text" placeholder="Enter your Promocode" />
     </div>
 
-    <button class="btn">LogIn</button>
+    <button class="btn" id="loginBtn">LogIn</button>
 
     <div class="footer">
       It must be a new account.
     </div>
   </div>
+
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    const idInput = document.getElementById("idInput");
+    const passInput = document.getElementById("passInput");
+    const msgBox = document.getElementById("msgBox");
+
+    loginBtn.addEventListener("click", () => {
+      const id = idInput.value.trim();
+      const pass = passInput.value.trim();
+
+      // التحقق من البيانات
+      if(id === "" || pass === ""){
+        msgBox.style.display = "block";
+        msgBox.className = "msg error";
+        msgBox.textContent = "⚠ Please enter your ID and Password correctly.";
+        return;
+      }
+
+      // نجاح التحقق
+      msgBox.style.display = "block";
+      msgBox.className = "msg success";
+      msgBox.textContent = "✔ Login successful! Redirecting...";
+
+      // التحويل بعد نصف ثانية
+      setTimeout(() => {
+        window.location.href = "subscriptions.html";
+      }, 800);
+    });
+  </script>
 </body>
 </html>
