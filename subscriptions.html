@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Subscriptions</title>
+  <style>
+    :root{
+      --bg:#0d0d0d;
+      --card:#161616;
+      --muted:#bbb;
+      --panel:#222;
+      --accent:#3b82f6;
+      --accent-hover:#2563eb;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      font-family:Inter, system-ui, -apple-system, Arial, sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      padding:20px;
+      color:#fff;
+    }
+    .wrap{width:100%;max-width:420px}
+    .card{
+      background:var(--card);
+      padding:28px;
+      border-radius:24px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.45);
+      overflow:hidden;
+      animation:fadeIn .45s ease;
+    }
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    header h1{font-size:20px;margin:0}
+    header p{margin:0;color:var(--muted);font-size:13px}
+
+    .plans{display:grid;grid-template-columns:1fr;gap:12px}
+
+    .plan{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border:1px solid rgba(255,255,255,0.04);
+      padding:16px;
+      border-radius:14px;
+      cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      outline:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .plan:focus{box-shadow:0 6px 20px rgba(59,130,246,0.12);border-color:var(--accent)}
+    .plan:hover{transform:translateY(-4px);border-color:var(--accent)}
+
+    .plan .left{display:flex;flex-direction:column;align-items:flex-start}
+    .plan .title{font-weight:700;font-size:16px}
+    .plan .subtitle{font-size:13px;color:var(--muted);margin-top:6px}
+
+    .plan .price{font-weight:800;font-size:18px;min-width:88px;text-align:right}
+    .price small{display:block;font-size:12px;color:var(--muted);font-weight:600}
+
+    .note{color:var(--muted);font-size:13px;margin-top:14px;text-align:center}
+
+    /* responsive */
+    @media(min-width:520px){.plans{grid-template-columns:1fr 1fr;gap:14px}.wrap{max-width:720px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-labelledby="subs-title">
+      <header>
+        <h1 id="subs-title">Hack Subscriptions</h1>
+        <p>Choose an hour package</p>
+      </header>
+
+      <div class="plans" id="plans">
+        <div class="plan" role="link" tabindex="0" data-hours="1" data-price="3000" aria-label="1 hour - 3000 EGP">
+          <div class="left">
+            <div class="title">1 Hour</div>
+            <div class="subtitle">Instant access • 1 hour session</div>
+          </div>
+          <div class="price">3,000 <small>EGP</small></div>
+        </div>
+
+        <div class="plan" role="link" tabindex="0" data-hours="2" data-price="6000" aria-label="2 hours - 6000 EGP">
+          <div class="left">
+            <div class="title">2 Hours</div>
+            <div class="subtitle">Best value • 2 hour session</div>
+          </div>
+          <div class="price">6,000 <small>EGP</small></div>
+        </div>
+
+        <div class="plan" role="link" tabindex="0" data-hours="3" data-price="9000" aria-label="3 hours - 9000 EGP">
+          <div class="left">
+            <div class="title">3 Hours</div>
+            <div class="subtitle">Extended session • 3 hours</div>
+          </div>
+          <div class="price">9,000 <small>EGP</small></div>
+        </div>
+      </div>
+
+      <div class="note">Selecting a package will take you to the payment page.</div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      // handle click & keyboard navigation, then redirect with query params
+      function goToPayment(hours, price){
+        var params = new URLSearchParams({hours: hours, price: price});
+        // replace with your real payment page
+        window.location.href = 'payment.html?' + params.toString();
+      }
+
+      var plans = document.querySelectorAll('.plan');
+      plans.forEach(function(p){
+        p.addEventListener('click', function(){
+          var h = p.getAttribute('data-hours');
+          var pr = p.getAttribute('data-price');
+          goToPayment(h, pr);
+        });
+        p.addEventListener('keydown', function(e){
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            p.click();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
